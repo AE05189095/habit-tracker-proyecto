@@ -73,9 +73,15 @@ router.put('/:id', async (req, res) => {
 });
 
 // Ruta PATCH para marcar hábito como hecho
-router.patch('habitos/markasdone/:id', async (req, res) => {
+router.patch('/markasdone/:id', async (req, res) => {
     try {
-        const habit = await Habit.findById(req.params.id);
+        const habitId = req.params.id;
+        console.log('ID recibido:', habitId);  // Imprimir el ID recibido en la consola
+
+        // Limpiar el ID recibido de saltos de línea o caracteres adicionales
+        const cleanedId = habitId.trim(); // Eliminar espacios o saltos de línea
+
+        const habit = await Habit.findById(cleanedId); // Usar el ID limpio
         if (!habit) {
             return res.status(404).json({ message: 'Hábito no encontrado' });
         }
@@ -97,7 +103,8 @@ router.patch('habitos/markasdone/:id', async (req, res) => {
         });
 
     } catch (err) {
-        res.status(500).json({ message: 'Error al actualizar el hábito', error: err });
+        console.error('Error al actualizar el hábito:', err); // Imprimir el error en la consola para depurar
+        res.status(500).json({ message: 'Error al actualizar el hábito', error: err.message });
     }
 });
 

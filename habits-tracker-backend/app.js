@@ -1,4 +1,5 @@
 require('./config/database'); // Esto ya está bien, solo asegúrate de que la ruta sea correcta
+const cors = require('cors');
 
 var createError = require('http-errors');
 var express = require('express');
@@ -11,6 +12,15 @@ var usersRouter = require('./routes/users');
 var habitosRouter = require('./routes/habitos'); // Importar la ruta
 
 var app = express();
+
+// Desactivar ETag
+app.disable('etag');  // Desactiva el envío del ETag
+
+// Configuración de CORS
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,3 +53,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
