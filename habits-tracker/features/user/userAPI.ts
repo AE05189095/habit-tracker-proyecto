@@ -1,52 +1,47 @@
-// userAPI.ts
+const API_URL = 'https://habits-tracker-backend-eight.vercel.app/api';
 
 export const fetchRegisterUser = async (username: string, password: string) => {
-    try {
-      const response = await fetch('http://localhost:3001/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: 'include', // Para enviar cookies si es necesario
-      });
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        // Si la respuesta no es exitosa, lanzamos un error con el mensaje del backend
-        throw new Error(errorData.error || 'Error desconocido');
-      }
-  
-      const data = await response.json();
-      return data; // Devolver los datos completos que se reciben del backend, como el token
-    } catch (error) {
-      console.error('Error al registrar usuario:', error);
-      throw error; // Propagar el error para que sea capturado en el thunk
+  try {
+    const response = await fetch(`${API_URL}/users/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Error al registrar usuario');
     }
-  };
-  
-  export const fetchLoginUser = async (username: string, password: string) => {
-    try {
-      const response = await fetch('http://localhost:3001/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: 'include', // Para enviar cookies si es necesario
-      });
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        // Si la respuesta no es exitosa, lanzamos un error con el mensaje del backend
-        throw new Error(errorData.error || 'Error desconocido');
-      }
-  
-      const data = await response.json();
-      return data; // Devolver los datos completos que se reciben del backend
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      throw error; // Propagar el error para que sea capturado en el thunk
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al registrar usuario:', error);
+    throw error;
+  }
+};
+
+export const fetchLoginUser = async (username: string, password: string) => {
+  try {
+    const response = await fetch(`${API_URL}/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Error al iniciar sesión');
     }
-  };
-  
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al iniciar sesión:', error);
+    throw error;
+  }
+};

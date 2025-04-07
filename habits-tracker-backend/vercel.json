@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app.js",
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    }
+  ],
+  "env": {
+    "PORT": "3001",
+    "MONGO_URI": "mongodb+srv://05189095:JEZVhOVgXDjaE6TS@cluster0.pog6g.mongodb.net/habitosApp?retryWrites=true&w=majority&appName=Cluster0",
+    "JWT_SECRET": "ProgramacionAvanzada",
+    "NODE_ENV": "production",
+    "ALLOWED_ORIGINS": "[\"https://habits-tracker-jfoptj6sk-angelo-estradas-projects.vercel.app\"]"
+  }
+}

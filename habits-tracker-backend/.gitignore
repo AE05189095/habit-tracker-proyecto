@@ -107,7 +107,7 @@ dist
 # Docusaurus cache and generated files
 .docusaurus
 
-# Serverless directories
+# Serverless directories (for serverless framework usage)
 .serverless/
 
 # FuseBox cache
@@ -128,3 +128,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+.vercel

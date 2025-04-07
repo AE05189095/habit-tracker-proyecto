@@ -9,7 +9,7 @@ router.get('/', async function (req, res, next) {
         if (!req.user) {
             return res.status(403).json({ error: 'No autenticado' });  // Verificar si el usuario está autenticado
         }
-        
+
         const habits = await Habit.find({ userId: req.user.userId });
         res.status(200).json(habits);
     } catch (error) {
